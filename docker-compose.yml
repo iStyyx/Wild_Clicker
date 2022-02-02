@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  project_webserver:
+    image: nginx
+    container_name: project_webserver
+    restart: always
+    volumes:
+      - ./:/var/www
+      - ./configuration/nginx/conf.d/:/etc/nginx/conf.d/
+    # volumes_from:
+    #   - project_symfony
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - project-network
+    links:
+      - project_symfony
+networks:
+  project-network:
+    driver: bridge
